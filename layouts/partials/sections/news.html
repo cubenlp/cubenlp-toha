@@ -1,0 +1,59 @@
+{{ $sectionID := replace (lower .section.name) " " "-"  }}
+{{ if .section.id }}
+  {{ $sectionID = .section.id }}
+{{ end }}
+
+<div class="container-fluid anchor pb-5 experiences-section" id="{{ $sectionID }}">
+  {{ if not (.section.hideTitle) }}
+    <h1 class="text-center">{{ .section.name }}</h1>
+  {{ end }}
+
+  <!-- <div class="container text-center align-items-center" >
+    <div class="text-center" style="position: relative;margin-bottom: 30px;float: left;width: 100%;height: 0;padding-bottom: 75%;">
+      <iframe src="//player.bilibili.com/player.html?aid=463022074&bvid=BV1vL411x7KB&cid=409316335&page=1" id="processResultMsg" class=""
+      scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="false" allow-forms="false"  style="position: absolute;width: 100%;height: 100%;left: 0;top: 0;"> </iframe>
+    </div>
+   </div> -->
+   <div class="container timeline text-justify">
+    <div class="row align-items-center  d-flex">
+   <div class="col-10 col-lg-8 offset-1 offset-lg-2">
+    <div class="experience-entry-heading">
+        <!-- For single position, give emphasis on the designation-->
+          <!-- <a href="https://mp.weixin.qq.com/s/42VdF8-Qw3SspRMWabaPHQ">
+            <h4>加入我们！</h4>
+          </a> -->
+    </div>
+    <!-- Add company overview -->
+    <!-- <p>华东师范大学计算机科学与技术学院优秀大学生夏令营将于<strong>2022年7月4日至7月6日</strong>在线举行。</p> -->
+
+  </div> 
+  </div>
+  <style>
+    .cell{margin-right: 15px;}
+    .cell-title{ color: black; }
+    .para {margin-bottom: 0.5em;}
+  </style>
+
+
+  </div>
+
+  <div class="container timeline text-justify">
+   {{ $totalExperiences:= len .experiences }}
+   {{ range $index,$experience:= .experiences }}
+     {{ if eq (mod $index 2) 0 }}
+       <div class="row align-items-center  d-flex">
+         {{ partial "sections/news/vertical-line.html" $index }}
+         {{ partial "sections/news/experience-info.html" $experience }}
+       </div>
+     {{else}}
+       <div class="row align-items-center justify-content-end d-flex">
+         {{ partial "sections/news/experience-info.html" $experience }}
+         {{ partial "sections/news/vertical-line.html" $index }}
+       </div>
+     {{ end }}
+     {{ if lt $index (sub $totalExperiences 1) }}
+       {{ partial "sections/news/horizontal-line.html" $index }}
+     {{ end }}
+   {{ end }}
+  </div>
+</div>

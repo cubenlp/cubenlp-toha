@@ -1,0 +1,24 @@
+<div class="col-4 col-sm-3 col-lg-2 pt-2 people-person">
+  <a href="{{.href}}">
+    {{ if .photo }}
+      <img class="avatar avatar-circle" src="{{ .photo }}" alt="Avatar"></a>
+  {{ end }}
+  <div class="portrait-title">
+    <h2><a href="{{.href}}">{{.name}}</a></h2>
+    <h3>{{.title}}</h3>
+    <ul class="network-icon" aria-hidden="true" style="margin-left: 10px;">
+      <li><a href="mailto:{{.email}}"><i class="fas fa-envelope"></i></a></li></li>
+      {{range $link := .links}}
+        <li><a href={{$link.href}} target="_blank" rel="noopener">
+        {{if eq $link.name "CSDN"}}
+        <i class="fab fa-cuttlefish"></i>
+        {{else if eq $link.name "GitHub"}}
+        <i class="fab fa-github"></i>
+        {{else if eq $link.name "博客园"}}
+        <i class="fas fa-rss-square"></i>
+        {{end}}
+        </a></li>
+      {{end}}
+    </ul>
+  </div>
+</div>

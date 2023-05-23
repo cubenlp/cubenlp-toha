@@ -1,0 +1,19 @@
+<div class="col-10 col-lg-8">
+  <div class="experience-entry-heading">
+      <!-- For single position, give emphasis on the designation-->
+      {{if .link}}
+        <a href="{{.link}}">
+          <h5>{{ .event | safeHTML}}</h5>
+        </a>
+      {{else}}
+        <h5>{{ .event | safeHTML}}</h5>
+      {{end}}
+      <!-- <h6>{{ if .company.url }}<a href={{.company.url}} title="{{ .company.name }}" target="_blank" rel="noopener">{{ .company.name }}</a>{{ else }}{{ .company.name }}{{ end }}</h6> -->
+      <!-- Add experience duration info -->
+      <p class="text-muted">{{ .time }}
+      </p>
+  </div>
+  <!-- Add company overview -->
+  <p>{{ .description | safeHTML}}</p>
+
+</div>

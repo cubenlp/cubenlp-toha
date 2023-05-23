@@ -27,6 +27,7 @@ body {
 }
 .content {
   background: #e5e9f2;
+  margin-top:2.5em;
 }
 .toc-section {
   flex: 20%;
@@ -98,7 +99,7 @@ body {
 .page-content {
   width: 100%;
   position: relative;
-  top: -4.5rem;
+  /* top: -4.5rem; */
   padding: 15px;
 }
 

@@ -32,6 +32,10 @@
 {{ end }}
 {{ $invertedLogo = $invertedLogo.RelPermalink}}
 
+{{ $groupLogo := resources.Get "/images/ecnu-cs-logo-qing.png"}}
+{{ $groupLogo = $groupLogo.Resize "502x84" }}
+{{ $groupLogo = $groupLogo.RelPermalink}}
+
 {{ $customMenus := site.Params.customMenus }}
 {{ if (index site.Data site.Language.Lang).site.customMenus }}
   {{ $customMenus = (index site.Data site.Language.Lang).site.customMenus }}
@@ -45,8 +49,10 @@
 <nav class="navbar navbar-expand-xl top-navbar initial-navbar" id="top-navbar">
   <div class="container">
     <a class="navbar-brand" href="{{ site.BaseURL | relLangURL }}">
+      
       <img src="{{ $invertedLogo }}" id="logo" alt="Logo">
       {{- site.Title -}}
+      <img src="{{ $groupLogo }}" id="logo" alt="Logo" style="width: 222px;margin-left: 10px;">
     </a>
     <button
       class="navbar-toggler navbar-dark"
