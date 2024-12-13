@@ -8,6 +8,11 @@
     <h1 class="text-center">{{ .section.name }}</h1>
   {{ end }}
 
+  <div class="tabs text-center mb-4">
+    <button onclick="showNewsTab('2023')" class="tab-btn" id="2023-news-tab-btn">2023</button>
+    <button onclick="showNewsTab('2024')" class="tab-btn" id="2024-news-tab-btn">2024</button>
+  </div>
+
   <!-- <div class="container text-center align-items-center" >
     <div class="text-center" style="position: relative;margin-bottom: 30px;float: left;width: 100%;height: 0;padding-bottom: 75%;">
       <iframe src="//player.bilibili.com/player.html?aid=463022074&bvid=BV1vL411x7KB&cid=409316335&page=1" id="processResultMsg" class=""
@@ -37,23 +42,72 @@
 
   </div>
 
-  <div class="container timeline text-justify">
-   {{ $totalExperiences:= len .experiences }}
-   {{ range $index,$experience:= .experiences }}
-     {{ if eq (mod $index 2) 0 }}
-       <div class="row align-items-center  d-flex">
-         {{ partial "sections/news/vertical-line.html" $index }}
-         {{ partial "sections/news/experience-info.html" $experience }}
-       </div>
-     {{else}}
-       <div class="row align-items-center justify-content-end d-flex">
-         {{ partial "sections/news/experience-info.html" $experience }}
-         {{ partial "sections/news/vertical-line.html" $index }}
-       </div>
-     {{ end }}
-     {{ if lt $index (sub $totalExperiences 1) }}
-       {{ partial "sections/news/horizontal-line.html" $index }}
-     {{ end }}
-   {{ end }}
+  <div id="news-2024">
+    <div class="container timeline text-justify">
+      {{ $totalExperiences:= len .news2024 }}
+      {{ range $index,$experience:= .news2024 }}
+        {{ if eq (mod $index 2) 0 }}
+          <div class="row align-items-center  d-flex">
+            {{ partial "sections/news/vertical-line.html" $index }}
+            {{ partial "sections/news/experience-info.html" $experience }}
+          </div>
+        {{else}}
+          <div class="row align-items-center justify-content-end d-flex">
+            {{ partial "sections/news/experience-info.html" $experience }}
+            {{ partial "sections/news/vertical-line.html" $index }}
+          </div>
+        {{ end }}
+        {{ if lt $index (sub $totalExperiences 1) }}
+          {{ partial "sections/news/horizontal-line.html" $index }}
+        {{ end }}
+      {{ end }}
+    </div>
+  </div>
+
+  <div id="news-2023">
+    <div class="container timeline text-justify">
+      {{ $totalExperiences:= len .news2023 }}
+      {{ range $index,$experience:= .news2023 }}
+        {{ if eq (mod $index 2) 0 }}
+          <div class="row align-items-center justify-content-end d-flex">
+            {{ partial "sections/news/experience-info.html" $experience }}
+            {{ partial "sections/news/vertical-line.html" $index }}
+          </div>
+        {{else}}
+          <div class="row align-items-center  d-flex">
+            {{ partial "sections/news/vertical-line.html" $index }}
+            {{ partial "sections/news/experience-info.html" $experience }}
+          </div>
+        {{ end }}
+        {{ if lt $index (sub $totalExperiences 1) }}
+          {{ partial "sections/news/horizontal-line.html" $index }}
+        {{ end }}
+      {{ end }}
+    </div>
   </div>
 </div>
+
+
+<script>
+  var prevActvieYear = "";
+  var tabNames = ["2023", "2024"]
+
+  for(const tabName of tabNames){
+    document.getElementById('news-' + tabName).style.display = 'none';
+  }
+
+  function showNewsTab(tabName) {
+    if(prevActvieYear != ""){
+      document.getElementById('news-' + prevActvieYear).style.display = 'none';
+      document.getElementById(prevActvieYear + '-news-tab-btn').classList.remove('active');
+    }
+
+    // Show current tab content
+    document.getElementById('news-' + tabName).style.display = 'flex';
+    document.getElementById(tabName + '-news-tab-btn').classList.add('active');
+    prevActvieYear = tabName;
+  }
+
+  // Show all by default
+  showNewsTab('2024');
+</script>
