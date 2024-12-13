@@ -7,11 +7,83 @@
   {{ if not (.section.hideTitle) }}
     <h1 class="text-center">{{ .section.name }}</h1>
   {{ end }}
+
+  <div class="tabs text-center mb-4">
+    <button onclick="showMemberTab('all')" class="tab-btn" id="all-members-tab-btn">全部</button>
+    <button onclick="showMemberTab('main')" class="tab-btn" id="main-members-tab-btn">在读</button>
+    <button onclick="showMemberTab('graduated')" class="tab-btn" id="graduated-members-tab-btn">已毕业</button>
+  </div>
+  
   <div class="container d-flex-block">
-    <div class="row" id="primary-skills">
+    <div class="row" id="all-members">
       {{ range .members }}
+        {{ partial "cards/member.html" . }}
+      {{ end }}
+      {{ range .graduates }}
+        {{ partial "cards/member.html" . }}
+      {{ end }}
+    </div>
+    <div class="row" id="main-members">
+      {{ range .members }}
+        {{ partial "cards/member.html" . }}
+      {{ end }}
+    </div>
+    <div class="row" id="graduated-members">
+      {{ range .graduates }}
         {{ partial "cards/member.html" . }}
       {{ end }}
     </div>
   </div>
 </div>
+
+<style>
+  .tabs .tab-btn {
+    background-color: #3498db; /* 背景颜色 */
+    color: white; /* 字体颜色 */
+    border: none; /* 无边框 */
+    padding: 10px 20px; /* 内边距 */
+    border-radius: 5px; /* 圆角边框 */
+    cursor: pointer; /* 鼠标悬停时显示为指针 */
+    font-size: 16px; /* 字体大小 */
+    transition: background-color 0.3s, transform 0.3s; /* 添加过渡效果 */
+  }
+  
+  .tabs .tab-btn:hover {
+    background-color: #2980b9; /* 悬停时的背景颜色 */
+    transform: scale(1.05); /* 悬停时放大 */
+  }
+  
+  .tabs .tab-btn:focus {
+    outline: none; /* 移除点击后按钮周围的轮廓 */
+  }
+
+  .tabs .tab-btn.active {
+    background-color: #2980b9; /* 激活时的背景颜色 */
+  }
+</style>
+
+<script>
+  var prevActvieMember = "";
+  var tabNames = ["all", "main", "graduated"]
+
+  for(const tabName of tabNames){
+    document.getElementById(tabName + '-members').style.display = 'none';
+    document.getElementById(tabName + '-members-tab-btn').classList.remove('active');
+  }
+
+  function showMemberTab(tabName) {
+    console.log(prevActvieMember)
+    if(prevActvieMember != ""){
+      document.getElementById(prevActvieMember + '-members').style.display = 'none';
+      document.getElementById(prevActvieMember + '-members-tab-btn').classList.remove('active');
+    }
+
+    // Show current tab content
+    document.getElementById(tabName + '-members').style.display = 'flex';
+    document.getElementById(tabName + '-members-tab-btn').classList.add('active');
+    prevActvieMember = tabName;
+  }
+
+  // Show all by default
+  showMemberTab('all');
+</script>
